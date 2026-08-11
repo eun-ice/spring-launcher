@@ -27,6 +27,7 @@
           <button id="btn-show-log" class="button is-small status-button" tabindex="-1">Toggle log</button>
           <button id="btn-upload-log" class="button is-small status-button" tabindex="-1">Upload log</button>
           <button id="btn-show-dir" class="button is-small status-button" tabindex="-1">Open install directory</button>
+          <button id="btn-open-replay" class="button is-small status-button" tabindex="-1">Open replay</button>
         </div>
         <div class="progress-area">
           <progress id="progress-part" max="100" value="0" class="progress is-primary is-small">0%</progress>
@@ -35,7 +36,10 @@
         <div class="mainbtn">
           <button id="btn-progress" class="button is-primary is-large">Start</button>
         </div>
-        <label class="checkbox" id="lbl-check-for-updates"><input type="checkbox" id="cb-check-for-updates">Update</label>
+        <div class="preferences">
+          <label class="checkbox" id="lbl-check-for-updates"><input type="checkbox" id="cb-check-for-updates">Update</label>
+          <label class="checkbox" id="lbl-replay-file-association"><input type="checkbox" id="cb-replay-file-association" checked>Default .sdfz app</label>
+        </div>
         <div id="footerLinks"></div>
       </div>
       <div id="note-content" class="box infobox" tabindex="-1"></div>

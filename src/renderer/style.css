@@ -47,13 +47,18 @@ body {
   grid-area: mainbtn;
 }
 
-#lbl-check-for-updates {
-  grid-area: checkupdates;
+.preferences {
+  grid-area: preferences;
   align-self: end;
   top: 4px;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  font-size: 12px;
 }
 
-#cb-check-for-updates {
+#cb-check-for-updates,
+#cb-replay-file-association {
   margin-right: 6px;
 }
 
@@ -90,7 +95,7 @@ body {
     'controls controls mainbtn'
     'status status mainbtn'
     'prog prog mainbtn'
-    'prog prog checkupdates'
+    'prog prog preferences'
     'links links links';
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-rows: 50fr 1fr 1fr 1fr 1fr 1fr;

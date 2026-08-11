@@ -1,14 +1,43 @@
 'use strict';
 
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, webUtils } = require('electron');
 const isDev = !require('@electron/remote').app.isPackaged;
 
 const btnShowDir = document.getElementById('btn-show-dir');
+const btnOpenReplay = document.getElementById('btn-open-replay');
+const cbReplayFileAssociation = document.getElementById('cb-replay-file-association');
 const lblMainTitle = document.getElementById('title');
 const footerLinks = document.getElementById('footerLinks');
 
 btnShowDir.addEventListener('click', () => {
 	ipcRenderer.send('open-install-dir');
+});
+
+btnOpenReplay.addEventListener('click', () => {
+	ipcRenderer.send('open-replay');
+});
+
+cbReplayFileAssociation.addEventListener('change', () => {
+	ipcRenderer.send('set-replay-file-association', cbReplayFileAssociation.checked);
+});
+
+ipcRenderer.on('replay-file-association-state', (_event, enabled) => {
+	cbReplayFileAssociation.checked = enabled;
+});
+ipcRenderer.send('get-replay-file-association');
+
+document.addEventListener('dragover', event => {
+	event.preventDefault();
+});
+
+document.addEventListener('drop', event => {
+	event.preventDefault();
+	const replayPaths = [...event.dataTransfer.files]
+		.map(file => webUtils.getPathForFile(file))
+		.filter(filePath => filePath.toLowerCase().endsWith('.sdfz'));
+	if (replayPaths.length > 0) {
+		ipcRenderer.send('open-replay-paths', replayPaths);
+	}
 });
 
 function updateLinks(links) {

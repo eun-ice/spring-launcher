@@ -135,7 +135,7 @@ app.prependListener('ready', () => {
 
 		if (config.no_downloads && config.auto_start) {
 			wizard.nextStep();
-		} else if (config.auto_download) {
+		} else if (config.auto_download && !wizard.started) {
 			gui.send('wizard-started');
 			wizard.nextStep();
 		} else {

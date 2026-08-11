@@ -4,7 +4,7 @@
   "description": "Electron-based SpringRTS Launcher app",
   "main": "src/main.js",
   "scripts": {
-    "test": "jest",
+    "test": "node --test",
     "lint": "eslint \"./src/**/*.js\"",
     "start": "electron .",
     "start-dev": "electron . --dev",
@@ -18,6 +18,15 @@
   "license": "ISC",
   "build": {
     "appId": "com.springrts.launcher",
+    "fileAssociations": [
+      {
+        "ext": "sdfz",
+        "name": "Spring Replay",
+        "description": "Spring replay file",
+        "role": "Viewer",
+        "mimeType": "application/x-spring-replay"
+      }
+    ],
     "extraFiles": [
       "files/*"
     ],

@@ -32,6 +32,7 @@ class Wizard extends EventEmitter {
 	constructor() {
 		super();
 		this.isActive = false;
+		this.startRequested = false;
 		this.generateSteps();
 	}
 
@@ -336,12 +337,13 @@ class Wizard extends EventEmitter {
 		log.info(`Step: ${JSON.stringify(step, null, 4)}`);
 
 		if (step.name === 'start') {
-			if (!(config.auto_start || forced)) {
+			if (!(config.auto_start || forced || this.startRequested)) {
 				gui.send('wizard-stopped');
 				gui.send('wizard-finished');
 				this.steps.push(step);
 				return false;
 			}
+			this.startRequested = false;
 		} else {
 			gui.send('wizard-next-step', {
 				name: step.name,
@@ -351,6 +353,13 @@ class Wizard extends EventEmitter {
 
 		step.action(step);
 		return true;
+	}
+
+	requestStart() {
+		this.startRequested = true;
+		if (!this.started || (this.steps[0] && this.steps[0].name === 'start')) {
+			this.nextStep(true);
+		}
 	}
 }
 
